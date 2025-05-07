@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-vazirmtn: var(--font-vazirmtn);
+  --font-mikhak: var(--font-mikhak);
+  --color-primary: #82b29a;
+  --color-primaryDark: #5a8d76;
+  --color-mint: #d7f0e4;
+  --color-lightBg: #f9faf9;
+  --color-textMain: #2c2c2c;
+  --color-textSubtle: #7d837f;
+  --color-border: #e0e4e2;
+  --color-accent: #e8c97a;
+  --color-accent-hover: #d9b85e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    direction: rtl;
+    font-family: var(--font-vazirmtn);
+    @apply bg-lightBg;
+  }
+  h1,
+  h2 {
+    @apply font-mikhak font-black text-gray-900;
+  }
+  h3,
+  h4,
+  h5 {
+    @apply font-mikhak font-bold text-gray-800;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  a {
+    @apply font-mikhak font-semibold;
+  }
+  p {
+    @apply font-vazirmtn font-medium text-gray-700;
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn {
+    @apply px-2 text-sm md:text-base sm:px-4 py-2 flex items-center rounded-md shadow transition shadow-transparent font-vazirmtn font-semibold;
+  }
+  .btn.primary {
+    @apply bg-primaryDark text-white hover:bg-primary;
+  }
+  .btn.accent {
+    @apply bg-accent text-textMain hover:bg-accent-hover;
+  }
+  .nav-link {
+    @apply text-sm px-2 md:px-2 md:text-base py-2 text-gray-700 hover:text-primaryDark flex;
+  }
+}
+@utility container {
+  @apply mx-auto px-4 md:px-8;
 }
