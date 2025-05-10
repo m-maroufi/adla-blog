@@ -2,7 +2,7 @@ import Pagenation from "@/components/Pagenation";
 import PostsContainer from "@/components/posts/PostsContainer";
 import { fetchPosts } from "@/utils/fetchPosts";
 
-export default async function  Home({ searchParams }: { searchParams: { [key: string]: string } }}) {
+export default async function  Home({ searchParams }: { searchParams: { [key: string]: string } }) {
 
   const page = parseInt(searchParams?.page as string) || 1;
   const per_page = parseInt(searchParams?.per_page as string) || 10;
