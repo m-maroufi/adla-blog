@@ -1,14 +1,17 @@
 import Pagenation from "@/components/Pagenation";
 import PostsContainer from "@/components/posts/PostsContainer";
 import { fetchPosts } from "@/utils/fetchPosts";
-interface Props {
-  searchParams?: { [key: string]: string | string[] };
-}
-export default async function  Home({ searchParams }: Props) {
-
-  const page = parseInt(searchParams?.page as string) || 1;
-  const per_page = parseInt(searchParams?.per_page as string) || 10;
-  const posts = await fetchPosts(page, per_page);
+type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+ 
+export default async function  Home(props: {
+  params: Params
+  searchParams: SearchParams
+}) {
+  const {page,per_page} = await props?.searchParams;
+   const parsedPage = parseInt(page as string) || 1;
+   const parsedPerPage = parseInt(per_page as string) || 10;
+  const posts = await fetchPosts(parsedPage, parsedPerPage);
   
   return <div className="mt-[100px]">
     <section className="page-title flex items-center justify-center min-h-[100px]">
