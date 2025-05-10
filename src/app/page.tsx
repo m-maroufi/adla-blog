@@ -1,12 +1,11 @@
 import Pagenation from "@/components/Pagenation";
 import PostsContainer from "@/components/posts/PostsContainer";
 import { fetchPosts } from "@/utils/fetchPosts";
-import Image from "next/image";
 
-export default async function  Home({serchParams}:{serchParams:{[key:string]:string}}) {
+export default async function  Home({ searchParams }: { searchParams: { [key: string]: string } }}) {
 
-  const page = parseInt(serchParams?.page as string) || 1;
-  const per_page = parseInt(serchParams?.per_page as string) || 10;
+  const page = parseInt(searchParams?.page as string) || 1;
+  const per_page = parseInt(searchParams?.per_page as string) || 10;
   const posts = await fetchPosts(page, per_page);
   
   return <div className="mt-[100px]">

@@ -4,10 +4,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
 const Pagenation = () => {
-   const serchParams = useSearchParams()
+   const searchParams = useSearchParams()
    const router =useRouter()
-    const page = parseInt(serchParams?.get('page') as string) || 1;
-    const per_page = parseInt(serchParams?.get('per_page') as string) || 10;
+    const page = parseInt(searchParams?.get('page') as string) || 1;
+    const per_page = parseInt(searchParams?.get('per_page') as string) || 10;
     // console.log(page,per_page);
   return (
     <div className='mt-10'>
