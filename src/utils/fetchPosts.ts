@@ -1,49 +1,66 @@
-"use server";
-import { WordPressHeadersType, WordPressPostType } from "@/types/wordpress";
+import { ArticleType, ErrorType, FetchDataType } from "@/types/DataTypeApi";
 
-const API_URL = process.env.WP_URL;
+const BaseUrl = process.env.BASE_URL;
 
- 
-export type FetchPostResultType = {
-  data: WordPressPostType[] | null;
-  headersData?: WordPressHeadersType;
-  status?: number;
-  error?:string[]|undefined;
-};
-
-export const fetchPosts = async (page: number,pre_page:number=10): Promise<FetchPostResultType | null> => {
-    await new Promise((resolve) => setTimeout(resolve, 150));
-
-
- try{
-    console.log("fetching posts"+`${API_URL}/posts?per_page=${pre_page}&page=${page}`);
+export async function getArticles(
+  pageSize = 8,
+  pageNumber = 1
+): Promise<FetchDataType> {
+  try {
     const response = await fetch(
-      `${API_URL}/posts?per_page=${pre_page}&page=${page}`
+      `${BaseUrl}/Landing/Articles?PageNumber=${pageNumber}&PageSize=${pageSize}`
     );
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    if (!response.ok || response.status !== 200) {
+      throw new Error("خطایی در دریافت اطلاعات پیش آمد.");
     }
-    const data: WordPressPostType[] = await response.json();
-    console.log(response.headers);
-    
-    const headersData:WordPressHeadersType ={
-        totalPages: response.headers.get('X-WP-TotalPages'),
-        totalPosts: response.headers.get('X-WP-Total'),
+    const result: FetchDataType = await response.json();
+    return result;
+  } catch (error) {
+    let errorMessage = "خطایی رخ داد.";
+    if (error instanceof Error) {
+      errorMessage = error.message;
     }
-    return({
-        data
-        ,headersData,
-        status: response.status,
-        error: undefined
-    })
-  }
 
-  catch (error) {
     return {
-        data: null,
-        headersData: undefined,
-        status: undefined,
-        error: [error instanceof Error ? error.message : 'Unknown error']
+      data: {
+        articles: null,
+      },
+      message: errorMessage,
+      isSuccess: false,
+    };
+  }
+}
+export interface resultGetArticle {
+  data: ArticleType | undefined;
+  message: string | null;
+  isSuccess: boolean;
+}
+export async function getArticleById(
+  articleId: Number
+): Promise<resultGetArticle> {
+  try {
+    const response = await fetch(`${BaseUrl}/Landing/Articles/${articleId}`);
+    if (!response.ok || response.status !== 200) {
+      throw new Error("خطایی در دریافت اطلاعات پیش آمد.");
+    }
+    const result: resultGetArticle = await response.json();
+    if (!result.data) {
+      return {
+        data: undefined,
+        message: "پست مورد نظر یافت نشد",
+        isSuccess: false,
       };
+    }
+    return result;
+  } catch (error) {
+    let errorMessage = "خطایی رخ داد.";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    return {
+      data: null as any,
+      message: errorMessage,
+      isSuccess: false,
+    };
   }
 }

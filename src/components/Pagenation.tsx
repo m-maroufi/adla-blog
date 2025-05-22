@@ -1,26 +1,47 @@
 "use client";
 
-import { useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import { props } from "@/app/articles/[id]/page";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import ReactPaginate from "react-paginate";
+type Props = {
+  totalPages: number;
+  pageSize?: number;
+  pageNumber?: number;
+};
+const Pagenation = ({ totalPages, pageSize, pageNumber }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  if (totalPages < 2) {
+    return null;
+  }
+  const handleOnChangePage = (event: { selected: number }) => {
+    console.log(event.selected, pageNumber);
+    const selectedPage = event.selected + 1;
 
-const Pagenation = () => {
-   const searchParams = useSearchParams()
-   const router =useRouter()
-    const page = parseInt(searchParams?.get('page') as string) || 1;
-    const per_page = parseInt(searchParams?.get('per_page') as string) || 10;
-    // console.log(page,per_page);
+    // پارامترهای قبلی رو حفظ کنیم
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("PageNumber", selectedPage.toString());
+
+    // ریدایرکت با شماره صفحه جدید
+    router.push(`?${params.toString()}`);
+  };
   return (
-    <div className='mt-10'>
-        <div className="flex items-center justify-center gap-4">
-            <button  onClick={() => {router.push(`/?page=${1}&per_page=${per_page}`)}}>
-              1
-            </button>
-            <button onClick={() => {router.push(`/?page=${2}&per_page=${per_page}`)}}>
-                2
-            </button>
-        </div>
-    </div>
-  )
-}
+    <ReactPaginate
+      pageCount={totalPages}
+      forcePage={(pageNumber ?? 1) - 1}
+      pageLinkClassName="w-[40px] cursor-pointer h-[40px] border border border-gray-300 inline-flex items-center justify-center"
+      activeLinkClassName="bg-primaryDark text-white"
+      className="flex items-center justify-center "
+      nextLabel=""
+      onPageChange={handleOnChangePage}
+      previousLabel="قبلی"
+      nextClassName="hidden"
+      previousClassName="hidden"
+      nextLinkClassName="border border-gray-300 inline-flex items-center justify-center h-[40px] px-4 cursor-pointer "
+      previousLinkClassName="border border-gray-300 inline-flex items-center justify-center h-[40px] px-4 cursor-pointer"
+    />
+  );
+};
 
-export default Pagenation
+export default Pagenation;

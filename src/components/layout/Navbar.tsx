@@ -4,7 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-const Navbar = ({isOpen ,onClose}:{isOpen:boolean,onClose: () => void}) => {
+const Navbar = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   const menuRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -13,11 +19,11 @@ const Navbar = ({isOpen ,onClose}:{isOpen:boolean,onClose: () => void}) => {
         onClose(); // اگه بیرون کلیک شد، منو بسته بشه
       }
     };
-  
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -29,10 +35,14 @@ const Navbar = ({isOpen ,onClose}:{isOpen:boolean,onClose: () => void}) => {
       }`}
     >
       <ul
-      ref={menuRef}
-      className={`main-menu block md:flex flex-col md:flex-row bg-lightBg h-screen w-3xs md:max-w-full md:h-full
+        ref={menuRef}
+        className={`main-menu block md:flex flex-col md:flex-row bg-lightBg h-screen w-3xs md:max-w-full md:h-full
         transition-all duration-500 ease-in-out delay-300 relative
-        ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-70 translate-x-full md:opacity-100 translate-none'}
+        ${
+          isOpen
+            ? "opacity-100 translate-x-0"
+            : "opacity-70 translate-x-full md:opacity-100 translate-none"
+        }
         shadow-lg md:shadow-none`}
       >
         <li className="md:hidden  w-full text-nowrap h-26 flex items-center justify-center md:justify-start">
@@ -58,7 +68,7 @@ const Navbar = ({isOpen ,onClose}:{isOpen:boolean,onClose: () => void}) => {
           </a>
           <ul className="dropdown max-w-xs w-full static md:absolute top-full right-0 bg-lightBg md:shadow-md md:w-xs md:border py-0 md:py-6 border-border overflow-hidden md:rounded-lg md:opacity-0 md:translate-y-8 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible md:invisible transition-all duration-300 ease-in-out ">
             <li className="md:hidden">
-              <a href="" className="nav-link px-6">
+              <a href="/" className="nav-link px-6">
                 صفحه نخست
               </a>
             </li>
@@ -85,12 +95,12 @@ const Navbar = ({isOpen ,onClose}:{isOpen:boolean,onClose: () => void}) => {
           </ul>
         </li>
         <li className=" w-full text-nowrap">
-          <a href="" className="nav-link px-6 md:px-2">
+          <a href="/" className="nav-link px-6 md:px-2">
             آکادمی حقوقی
           </a>
         </li>
         <li className=" w-full">
-          <a href="" className="nav-link px-6 md:px-2">
+          <a href="/blog" className="nav-link px-6 md:px-2">
             بلاگ
           </a>
         </li>
