@@ -10,7 +10,11 @@ const PostBox = ({ article }: { article: ArticleType }) => {
       <div className="post-box flex flex-col gap-4 bg-white rounded-lg shadow-md p-4">
         <div className="post-image w-full h-48 bg-gray-200 rounded-lg relative overflow-hidden">
           <Image
-            src={`${baseImgUrl}${article.thumbnail}`}
+            src={
+              article.thumbnail
+                ? `${baseImgUrl}${article.thumbnail}`
+                : "/images/placeholder.png"
+            }
             fill
             alt={article.title}
             className="object-cover object-center rounded-lg"

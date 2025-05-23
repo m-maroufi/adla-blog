@@ -2,6 +2,7 @@ import BackButton from "@/components/BackButton";
 import { convertIsoToPersianDate } from "@/lib/dateUtils";
 import { ArticleType } from "@/types/DataTypeApi";
 import { getArticleById } from "@/utils/fetchPosts";
+import { baseImgUrl } from "@/utils/helper";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -47,7 +48,9 @@ export default async function Page(props: props) {
             <div className="flex-shrink-0 w-full lg:w-1/3">
               <Image
                 src={
-                  "https://cdn.adlara.ir/upload/adl-articles/262e1e3ea9984f83ac8fddbd11d2ffc9490056984.jpeg"
+                  article.thumbnail
+                    ? `${baseImgUrl}${article.thumbnail}`
+                    : "/images/placeholder.png"
                 }
                 alt="thumbnail"
                 width={600}
