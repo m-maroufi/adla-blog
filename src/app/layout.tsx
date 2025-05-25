@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmtn",
+  weight: ["400", "600", "500"],
   subsets: ["arabic", "latin"],
   display: "swap",
 });
