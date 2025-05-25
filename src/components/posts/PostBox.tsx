@@ -16,6 +16,7 @@ const PostBox = ({ article }: { article: ArticleType }) => {
                 : "/images/placeholder.png"
             }
             fill
+            priority={true}
             alt={article.title}
             className="object-cover object-center rounded-lg"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

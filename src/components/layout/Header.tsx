@@ -3,8 +3,10 @@ import { useState } from "react";
 import { AlignJustify, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./Navbar";
 
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("./Navbar"), { ssr: false });
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleMenuHandler = (

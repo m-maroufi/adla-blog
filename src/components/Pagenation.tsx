@@ -3,7 +3,10 @@
 import { props } from "@/app/articles/[id]/page";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import ReactPaginate from "react-paginate";
+
+import dynamic from "next/dynamic";
+const ReactPaginate = dynamic(() => import("react-paginate"), { ssr: false });
+
 type Props = {
   totalPages: number;
   pageSize?: number;
