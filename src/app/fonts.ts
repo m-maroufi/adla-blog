@@ -4,4 +4,5 @@ export const mikhak = localFont({
   src: "./fonts/Mikhak/Variable/Mikhak-FD[DSTY,KSHD,wght].woff2",
   variable: "--font-mikhak",
   display: "swap",
+  preload: false,
 });

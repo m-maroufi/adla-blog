@@ -9,6 +9,7 @@ const vazirmatn = Vazirmatn({
   weight: ["400", "600", "500"],
   subsets: ["arabic", "latin"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata = {
@@ -28,7 +29,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${vazirmatn.variable} ${mikhak.variable} antialiased`}>
+      <body
+        className={`${vazirmatn.variable} ${mikhak.variable} antialiased font-mikhak`}
+      >
         <Header />
         {children}
       </body>
